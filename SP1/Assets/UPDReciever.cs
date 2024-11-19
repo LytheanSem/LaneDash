@@ -32,11 +32,35 @@ public class SocketListener : MonoBehaviour
     void Update()
     {
         // Trigger player actions based on the received signals
-        if (moveLeft) { playerMovement.MoveLeft(); moveLeft = false; }
-        if (moveRight) { playerMovement.MoveRight(); moveRight = false; }
-        if (jump) { playerMovement.Jump(); jump = false; }
-        if (bendDown) { playerMovement.BendDown(); bendDown = false; }
-        if (center) { playerMovement.ResetToCenter(); center = false; }
+        if (moveLeft)
+        {
+            playerMovement.MoveLeft();
+            moveLeft = false;
+        }
+        if (moveRight)
+        {
+            playerMovement.MoveRight();
+            moveRight = false;
+        }
+        if (jump)
+        {
+            playerMovement.Jump();
+            jump = false;
+        }
+        if (bendDown)
+        {
+            playerMovement.BendDown();
+        }
+        else
+        {
+            playerMovement.StandUp(); // Automatically stand up when bendDown is false
+        }
+
+        if (center)
+        {
+            playerMovement.MoveToCenter();
+            center = false;
+        }
     }
 
     private void OnReceive(IAsyncResult result)
@@ -54,9 +78,18 @@ public class SocketListener : MonoBehaviour
             // Set the appropriate actions based on the received message
             moveLeft = position == "Left";
             moveRight = position == "Right";
-            center = position == "Center";
+            center = position == "Center"; // Detect "Center" input
             jump = action == "Jump";
-            bendDown = action == "Bend Down";
+
+            // Handle bend down action
+            if (action == "Bend Down")
+            {
+                bendDown = true;
+            }
+            else
+            {
+                bendDown = false; // Automatically set to false when "Bend Down" is no longer detected
+            }
         }
         catch (Exception e)
         {
