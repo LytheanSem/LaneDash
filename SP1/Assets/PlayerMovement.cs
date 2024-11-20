@@ -1,10 +1,13 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
     public float laneDistance = 2.5f; // Distance between lanes
+    public float laneTransitionDuration = 0.2f; // Time to complete the lane transition
     private Rigidbody rb;
     private bool isCrouching = false;
+    private bool isTransitioning = false; // To prevent simultaneous transitions
 
     private int currentLane = 1; // 0 = left, 1 = center, 2 = right
     private Vector3 originalScale; // Store the original scale of the cube
@@ -53,39 +56,52 @@ public class PlayerMovement : MonoBehaviour
         if (currentLane != 1) // Only move to center if not already in the center lane
         {
             currentLane = 1; // Set lane to center
-            UpdateLanePosition();
+            StartCoroutine(SmoothLaneTransition((currentLane - 1) * laneDistance));
         }
     }
 
     public void MoveLeft()
     {
-        if (currentLane > 0) // Check if not already in the leftmost lane
+        if (!isTransitioning && currentLane > 0) // Check if not already in the leftmost lane
         {
             currentLane--;
-            UpdateLanePosition();
+            StartCoroutine(SmoothLaneTransition((currentLane - 1) * laneDistance));
         }
     }
 
     public void MoveRight()
     {
-        if (currentLane < 2) // Check if not already in the rightmost lane
+        if (!isTransitioning && currentLane < 2) // Check if not already in the rightmost lane
         {
             currentLane++;
-            UpdateLanePosition();
+            StartCoroutine(SmoothLaneTransition((currentLane - 1) * laneDistance));
         }
     }
 
-    private void UpdateLanePosition()
+    private IEnumerator SmoothLaneTransition(float targetX)
     {
-        float targetX = (currentLane - 1) * laneDistance; // -1 for left, 0 for center, 1 for right
-        transform.position = new Vector3(targetX, transform.position.y, transform.position.z);
+        isTransitioning = true; // Prevent multiple transitions at the same time
+        Vector3 startPosition = transform.position;
+        Vector3 targetPosition = new Vector3(targetX, startPosition.y, startPosition.z);
+
+        float elapsedTime = 0f;
+
+        while (elapsedTime < laneTransitionDuration)
+        {
+            transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / laneTransitionDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = targetPosition; // Ensure exact final position
+        isTransitioning = false; // Allow new transitions
     }
 
     public void Jump()
     {
         if (Mathf.Abs(rb.velocity.y) < 0.01f) // Only jump when nearly grounded
         {
-            rb.AddForce(Vector3.up * 6f, ForceMode.VelocityChange); // Adjust force as needed
+            rb.velocity = new Vector3(rb.velocity.x, 6f, rb.velocity.z); // Set upward velocity for jump
         }
     }
 
