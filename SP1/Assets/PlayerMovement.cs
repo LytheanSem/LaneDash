@@ -109,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Mathf.Abs(rb.velocity.y) < 0.01f) // Only jump when nearly grounded
         {
-            rb.velocity = new Vector3(rb.velocity.x, 6f, rb.velocity.z); // Set upward velocity for jump
+            rb.velocity = new Vector3(rb.velocity.x, 7f, rb.velocity.z); // Set upward velocity for jump
         }
     }
 
