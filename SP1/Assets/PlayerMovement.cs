@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
         originalScale = transform.localScale;
 
         // Ensure the player starts in the center lane
-        transform.position = new Vector3(0f, transform.position.y, transform.position.z);
+        transform.position = new Vector3(0f, transform.position.y, transform.position.z); // Center position on X
     }
 
     void Update()
@@ -49,14 +49,11 @@ public class PlayerMovement : MonoBehaviour
         {
             StandUp();
         }
-    }
 
-    public void MoveToCenter()
-    {
-        if (currentLane != 1) // Only move to center if not already in the center lane
+        // Handle moving to the center lane
+        if (Input.GetKeyDown(KeyCode.C)) // Press C to move to the center lane
         {
-            currentLane = 1; // Set lane to center
-            StartCoroutine(SmoothLaneTransition((currentLane - 1) * laneDistance));
+            MoveToCenter();
         }
     }
 
@@ -64,8 +61,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isTransitioning && currentLane > 0) // Check if not already in the leftmost lane
         {
-            currentLane--;
-            StartCoroutine(SmoothLaneTransition((currentLane - 1) * laneDistance));
+            currentLane--; // Move to left lane
+            StartCoroutine(SmoothLaneTransition((currentLane - 1) * laneDistance)); // Transition smoothly
         }
     }
 
@@ -73,8 +70,18 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isTransitioning && currentLane < 2) // Check if not already in the rightmost lane
         {
-            currentLane++;
-            StartCoroutine(SmoothLaneTransition((currentLane - 1) * laneDistance));
+            currentLane++; // Move to right lane
+            StartCoroutine(SmoothLaneTransition((currentLane - 1) * laneDistance)); // Transition smoothly
+        }
+    }
+
+    // Method to move the player to the center lane (Lane 1)
+    public void MoveToCenter()
+    {
+        if (currentLane != 1) // Only move to center if not already in the center lane
+        {
+            currentLane = 1; // Set lane to center
+            StartCoroutine(SmoothLaneTransition(0f)); // Transition smoothly to center (X = 0)
         }
     }
 
@@ -82,10 +89,11 @@ public class PlayerMovement : MonoBehaviour
     {
         isTransitioning = true; // Prevent multiple transitions at the same time
         Vector3 startPosition = transform.position;
-        Vector3 targetPosition = new Vector3(targetX, startPosition.y, startPosition.z);
+        Vector3 targetPosition = new Vector3(targetX, startPosition.y, startPosition.z); // Keep the same Y and Z
 
         float elapsedTime = 0f;
 
+        // Transition smoothly over the given duration
         while (elapsedTime < laneTransitionDuration)
         {
             transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / laneTransitionDuration);

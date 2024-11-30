@@ -2,57 +2,39 @@ using UnityEngine;
 
 public class ObstacleSpawner : MonoBehaviour
 {
-    public GameObject[] obstaclePrefabs; // Array of obstacle prefabs
-    public float spawnInterval = 2f; // Time between obstacle spawns
-    private float timer = 0f;
+    public GameObject[] obstaclePrefabs; // Array of different obstacle prefabs
+    public float spawnInterval = 2f;     // Time between obstacle spawns
+    public float laneWidth = 4f;         // Distance between lanes (assuming 3 lanes)
+    public float spawnHeight = 1f;       // Height where obstacles are spawned
+    public float spawnZOffset = 20f;     // Z position offset to spawn obstacles ahead of the player
 
-    // Lane positions for spawning
-    private float[] lanePositions = new float[] { -2.5f, 0f, 2.5f };
-    public float spawnZStart = 10f; // Minimum Z position for spawning
-    public float spawnZEnd = 20f; // Maximum Z position for spawning
-    public float fallbackY = 0.5f; // Default Y position if Raycast fails
+    private float spawnTimer = 0f;
 
     void Update()
     {
-        timer += Time.deltaTime;
+        spawnTimer += Time.deltaTime;
 
-        if (timer >= spawnInterval)
+        if (spawnTimer >= spawnInterval)
         {
+            spawnTimer = 0f;
             SpawnObstacle();
-            timer = 0f;
         }
     }
 
     void SpawnObstacle()
     {
-        // Select a random lane (X position)
-        int randomLane = Random.Range(0, lanePositions.Length);
-        float spawnX = lanePositions[randomLane];
-
-        // Select a random Z position within range
-        float spawnZ = Random.Range(spawnZStart, spawnZEnd);
-
-        // Select a random obstacle prefab
+        // Randomly select a type of obstacle from the array
         int randomObstacleIndex = Random.Range(0, obstaclePrefabs.Length);
-        GameObject selectedObstaclePrefab = obstaclePrefabs[randomObstacleIndex];
+        GameObject obstacle = obstaclePrefabs[randomObstacleIndex];
 
-        // Raycast down to find the ground's Y position
-        RaycastHit hit;
-        if (Physics.Raycast(new Vector3(spawnX, 50f, spawnZ), Vector3.down, out hit))
-        {
-            // Ground detected
-            float spawnY = hit.point.y;
-            Vector3 spawnPosition = new Vector3(spawnX, spawnY, spawnZ);
-            Instantiate(selectedObstaclePrefab, spawnPosition, Quaternion.identity);
-        }
-        else
-        {
-            // Fallback Y position
-            Vector3 spawnPosition = new Vector3(spawnX, fallbackY, spawnZ);
-            Instantiate(selectedObstaclePrefab, spawnPosition, Quaternion.identity);
-        }
+        // Randomize lane position (-1 for left, 0 for middle, 1 for right)
+        int randomLane = Random.Range(-1, 2);
+        float spawnXPosition = randomLane * laneWidth; // Calculate X position based on lane width
 
-        // Debug the raycast visually in Scene view
-        Debug.DrawRay(new Vector3(spawnX, 50f, spawnZ), Vector3.down * 50f, Color.red, 2f);
+        // Create the spawn position for the obstacle
+        Vector3 spawnPosition = new Vector3(spawnXPosition, spawnHeight, transform.position.z + spawnZOffset);
+
+        // Instantiate the obstacle at the calculated position
+        Instantiate(obstacle, spawnPosition, Quaternion.identity);
     }
 }

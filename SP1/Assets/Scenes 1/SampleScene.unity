@@ -200,14 +200,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstaclePrefabs:
-  - {fileID: 9000021496007544746, guid: 78fc95980fe6c4c95a4ab09224b519ec, type: 3}
   - {fileID: 8231205931343985243, guid: 2d8a49e81fbc62547946631ab51e54e7, type: 3}
-  - {fileID: 3362777104034508152, guid: ff83337f14492c846b423428fe7e6c33, type: 3}
   - {fileID: 510086628016595803, guid: 05d0e5d74d0dd714ba3102500eb05444, type: 3}
-  spawnInterval: 1.5
-  spawnZStart: 3
-  spawnZEnd: 20
-  fallbackY: 0.5
+  - {fileID: 9000021496007544746, guid: 78fc95980fe6c4c95a4ab09224b519ec, type: 3}
+  spawnInterval: 2
+  laneWidth: 4
+  spawnHeight: 1
+  spawnZOffset: 20
 --- !u!65 &593553895
 BoxCollider:
   m_ObjectHideFlags: 0
