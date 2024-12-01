@@ -4,7 +4,7 @@ public class ObstacleSpawner : MonoBehaviour
 {
     public GameObject[] obstaclePrefabs; // Array of different obstacle prefabs
     public float spawnInterval = 2f;     // Time between obstacle spawns
-    public float laneWidth = 3f;         // Distance between lanes (assuming 3 lanes)
+    public float laneWidth = 4f;         // Distance between lanes (assuming 3 lanes)
     public float spawnHeight = 1f;       // Height where obstacles are spawned
     public float spawnZOffset = 20f;     // Z position offset to spawn obstacles ahead of the player
 

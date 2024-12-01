@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float laneDistance = 2.5f; // Distance between lanes
+    public float laneDistance = 4f; // Distance between lanes
     public float laneTransitionDuration = 0.2f; // Time to complete the lane transition
     private Rigidbody rb;
     private bool isCrouching = false;
@@ -109,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Mathf.Abs(rb.velocity.y) < 0.01f) // Only jump when nearly grounded
         {
-            rb.velocity = new Vector3(rb.velocity.x, 7f, rb.velocity.z); // Set upward velocity for jump
+            rb.velocity = new Vector3(rb.velocity.x, 6f, rb.velocity.z); // Set upward velocity for jump
         }
     }
 

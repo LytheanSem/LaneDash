@@ -121,7 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   resetPosition: -20
-  fixedYPosition: 1
+  fixedYPosition: 0.5
 --- !u!54 &4639032136565804622
 Rigidbody:
   m_ObjectHideFlags: 0
