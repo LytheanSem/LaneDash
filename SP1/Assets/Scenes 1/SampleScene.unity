@@ -169,9 +169,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstaclePrefabs:
-  - {fileID: 8231205931343985243, guid: 2d8a49e81fbc62547946631ab51e54e7, type: 3}
   - {fileID: 510086628016595803, guid: 05d0e5d74d0dd714ba3102500eb05444, type: 3}
   - {fileID: 9000021496007544746, guid: 78fc95980fe6c4c95a4ab09224b519ec, type: 3}
+  - {fileID: 5685802759446134154, guid: 325b1eff4280147f0bc245d7b4011687, type: 3}
   spawnInterval: 2
   laneWidth: 4
   spawnHeight: 1
@@ -602,7 +602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec7a8c8936dc49229ecd5f0915adf21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laneDistance: 3
+  laneDistance: 4
   laneTransitionDuration: 0.2
 --- !u!1 &1618623176
 GameObject:
