@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float laneDistance = 4f; // Distance between lanes
+    public float laneDistance = 3f; // Distance between lanes
     public float laneTransitionDuration = 0.2f; // Time to complete the lane transition
     private Rigidbody rb;
     private bool isCrouching = false;
@@ -43,18 +43,18 @@ public class PlayerMovement : MonoBehaviour
         // Handle crouching and standing up
         if (Input.GetKeyDown(KeyCode.DownArrow)) // Bend Down
         {
-            BendDown();
+            Crouch();
         }
-        else if (Input.GetKeyUp(KeyCode.DownArrow)) // Stand Up
-        {
-            StandUp();
-        }
+        // else if (Input.GetKeyUp(KeyCode.DownArrow)) // Stand Up
+        // {
+        //     StandUp();
+        // }
 
-        // Handle moving to the center lane
-        if (Input.GetKeyDown(KeyCode.C)) // Press C to move to the center lane
-        {
-            MoveToCenter();
-        }
+        // // Handle moving to the center lane
+        // if (Input.GetKeyDown(KeyCode.C)) // Press C to move to the center lane
+        // {
+        //     MoveToCenter();
+        // }
     }
 
     public void MoveLeft()
@@ -113,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void BendDown()
+    public void Crouch()
     {
         if (!isCrouching)
         {

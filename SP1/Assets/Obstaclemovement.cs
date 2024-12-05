@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ObstacleMovement : MonoBehaviour
 {
-    public float speed = 3f;          // Speed at which the obstacle moves
+    public float speed = 4f;          // Speed at which the obstacle moves
     public float resetPosition = -20f; // Position where the obstacle resets (off-screen)
     public float fixedYPosition = 1f;  // Set to the Y position you want your obstacles at
 

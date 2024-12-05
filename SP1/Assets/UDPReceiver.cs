@@ -13,7 +13,7 @@ public class SocketListener : MonoBehaviour
     private bool moveLeft = false;
     private bool moveRight = false;
     private bool jump = false;
-    private bool bendDown = false;
+    private bool crouch = false;
     private bool center = false;
 
     void Start()
@@ -47,13 +47,13 @@ public class SocketListener : MonoBehaviour
             playerMovement.Jump();
             jump = false;
         }
-        if (bendDown)
+        if (crouch)
         {
-            playerMovement.BendDown();
+            playerMovement.Crouch();
         }
         else
         {
-            playerMovement.StandUp(); // Automatically stand up when bendDown is false
+            playerMovement.StandUp(); // Automatically stand up when crouch is false
         }
 
         if (center)
@@ -82,13 +82,13 @@ public class SocketListener : MonoBehaviour
             jump = action == "Jump";
 
             // Handle bend down action
-            if (action == "Bend Down")
+            if (action == "Crouch")
             {
-                bendDown = true;
+                crouch = true;
             }
             else
             {
-                bendDown = false; // Automatically set to false when "Bend Down" is no longer detected
+                crouch = false; // Automatically set to false when "Bend Down" is no longer detected
             }
         }
         catch (Exception e)
