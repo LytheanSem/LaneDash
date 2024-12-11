@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-
+ 
 public class PlayerMovement : MonoBehaviour
 {
     public float laneDistance = 3f; // Distance between lanes
@@ -8,20 +8,20 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private bool isCrouching = false;
     private bool isTransitioning = false; // To prevent simultaneous transitions
-
+ 
     private int currentLane = 1; // 0 = left, 1 = center, 2 = right
     private Vector3 originalScale; // Store the original scale of the cube
-
+ 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         // Store the original scale of the cube
         originalScale = transform.localScale;
-
+ 
         // Ensure the player starts in the center lane
         transform.position = new Vector3(0f, transform.position.y, transform.position.z); // Center position on X
     }
-
+ 
     void Update()
     {
         // Handle horizontal movement
@@ -33,13 +33,13 @@ public class PlayerMovement : MonoBehaviour
         {
             MoveRight();
         }
-
+ 
         // Handle jumping
         if (Input.GetKeyDown(KeyCode.Space)) // Jump
         {
             Jump();
         }
-
+ 
         // Handle crouching and standing up
         if (Input.GetKeyDown(KeyCode.DownArrow)) // Bend Down
         {
@@ -49,14 +49,14 @@ public class PlayerMovement : MonoBehaviour
         // {
         //     StandUp();
         // }
-
+ 
         // // Handle moving to the center lane
         // if (Input.GetKeyDown(KeyCode.C)) // Press C to move to the center lane
         // {
         //     MoveToCenter();
         // }
     }
-
+ 
     public void MoveLeft()
     {
         if (!isTransitioning && currentLane > 0) // Check if not already in the leftmost lane
@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(SmoothLaneTransition((currentLane - 1) * laneDistance)); // Transition smoothly
         }
     }
-
+ 
     public void MoveRight()
     {
         if (!isTransitioning && currentLane < 2) // Check if not already in the rightmost lane
@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(SmoothLaneTransition((currentLane - 1) * laneDistance)); // Transition smoothly
         }
     }
-
+ 
     // Method to move the player to the center lane (Lane 1)
     public void MoveToCenter()
     {
@@ -84,15 +84,15 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(SmoothLaneTransition(0f)); // Transition smoothly to center (X = 0)
         }
     }
-
+ 
     private IEnumerator SmoothLaneTransition(float targetX)
     {
         isTransitioning = true; // Prevent multiple transitions at the same time
         Vector3 startPosition = transform.position;
         Vector3 targetPosition = new Vector3(targetX, startPosition.y, startPosition.z); // Keep the same Y and Z
-
+ 
         float elapsedTime = 0f;
-
+ 
         // Transition smoothly over the given duration
         while (elapsedTime < laneTransitionDuration)
         {
@@ -100,11 +100,11 @@ public class PlayerMovement : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
+ 
         transform.position = targetPosition; // Ensure exact final position
         isTransitioning = false; // Allow new transitions
     }
-
+ 
     public void Jump()
     {
         if (Mathf.Abs(rb.velocity.y) < 0.01f) // Only jump when nearly grounded
@@ -112,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, 6f, rb.velocity.z); // Set upward velocity for jump
         }
     }
-
+ 
     public void Crouch()
     {
         if (!isCrouching)
@@ -121,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
             isCrouching = true;
         }
     }
-
+ 
     public void StandUp()
     {
         if (isCrouching)
