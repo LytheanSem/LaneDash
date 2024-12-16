@@ -148,4 +148,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   resetPosition: -20
-  fixedYPosition: 1.3
+  fixedYPosition: 2
