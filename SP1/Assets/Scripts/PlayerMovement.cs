@@ -10,20 +10,14 @@ public class PlayerMovement : MonoBehaviour
     private float[] lanes = { -5f, 0f, 5f }; // Lane positions on x-axis
     public bool isJumping = false;
     public bool comingDown = false;
-    public bool comingUp = false; // New state for sliding transition
     public bool isSliding = false; // Check if player is sliding
     public GameObject playerObject;
-
-    private float originalYPosition; // To store the player's original Y position (before sliding)
 
     // Update is called once per frame
     void Update()
     {
         // Continuous running
-        if (!isSliding) // Don't move forward if sliding
-        {
-            transform.Translate(Vector3.forward * Time.deltaTime * playerSpeed, Space.World);
-        }
+        transform.Translate(Vector3.forward * Time.deltaTime * playerSpeed, Space.World);
 
         // Switch lane left (A, Left Arrow)
         if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && currentLane > 0)
@@ -67,27 +61,27 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Sliding (Left Control or Shift)
+        // Sliding (Left Control or Shift)
         if ((Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.C)) && !isSliding && !isJumping)
         {
             isSliding = true;
-            playerObject.GetComponent<Animator>().Play("Falling To Roll"); // Play the slide animation
-            StartCoroutine(SlideSequence()); // Start the slide Coroutine
+            playerObject.GetComponent<Animator>().Play("Standing Dive Forward"); // Play the sliding animation
+            StartCoroutine(SlideSequence()); // Start the Slide Coroutine
         }
 
-        // Smoothly come up after sliding
-        if (comingUp)
+        // Handle sliding and returning to normal position
+        if (isSliding)
         {
-            // Smoothly rise back to the original Y position after sliding
-            float riseSpeed = 2f; // Speed at which the player rises back to original position
-            transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, originalYPosition, Time.deltaTime * riseSpeed), transform.position.z);
-
-            // If we are close enough to the original position, stop the transition
-            if (Mathf.Abs(transform.position.y - originalYPosition) < 0.1f)
+            if (!comingDown)
             {
-                comingUp = false; // Stop coming up when we are near the target Y position
-                transform.position = new Vector3(transform.position.x, originalYPosition, transform.position.z); // Ensure perfect alignment
+                transform.Translate(Vector3.down * Time.deltaTime * 2, Space.World); // Move slightly downward
+            }
+            else
+            {
+                transform.Translate(Vector3.up * Time.deltaTime * 2, Space.World); // Move back up
             }
         }
+
     }
 
     // Jump sequence with delays for upward and downward movement
@@ -105,30 +99,18 @@ public class PlayerMovement : MonoBehaviour
         playerObject.GetComponent<Animator>().Play("Fast Run");
     }
 
-    // Slide sequence with a delay to simulate sliding motion
+    // Slide sequence with delays for starting and ending the slide
     IEnumerator SlideSequence()
     {
-        // Store the player's original Y position before sliding
-        originalYPosition = transform.position.y;
+        // Slide downward for a brief moment
+        comingDown = true; // Start moving down
+        yield return new WaitForSeconds(0.25f); // Time to stay low
 
-        // Adjust the player's speed during the slide (faster while sliding)
-        float originalSpeed = playerSpeed;
-        playerSpeed *= 2f; // Increase the speed for the slide duration
+        comingDown = false; // Start moving back up
+        yield return new WaitForSeconds(0.25f); // Time to return to original position
 
-        // Slide duration (can be adjusted)
-        yield return new WaitForSeconds(1f); // Keep sliding for 1 second
+        isSliding = false; // End sliding state
 
-        // End the slide and restore normal speed
-        isSliding = false;
-        playerSpeed = originalSpeed;
-
-        // Enable the comingUp flag for smooth transition after sliding
-        comingUp = true;
-
-        // Wait a short time before transitioning fully up
-        yield return new WaitForSeconds(0.3f); // Adjust the time as needed
-
-        comingUp = false; // Reset the comingUp flag after transition
         // Play the "Fast Run" animation after sliding
         playerObject.GetComponent<Animator>().Play("Fast Run");
     }
