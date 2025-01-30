@@ -1,6 +1,6 @@
-import socket
-
 import cv2
+
+import socket
 import mediapipe as mp
 
 # Initialize MediaPipe Pose
