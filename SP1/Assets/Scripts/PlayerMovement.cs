@@ -40,6 +40,36 @@ public class PlayerMovement : MonoBehaviour
 
         // Process received message for movement
         ProcessUDPInput();
+        ProcessKeyboardInput();
+    }
+
+    void ProcessKeyboardInput()
+    {
+        // Lane Switching
+        if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && currentLane > 0)
+            currentLane--;
+        if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && currentLane < lanes.Length - 1)
+            currentLane++;
+
+        float targetXPosition = lanes[currentLane];
+        float newX = Mathf.Lerp(transform.position.x, targetXPosition, Time.deltaTime * laneSwitchSpeed);
+        transform.position = new Vector3(newX, transform.position.y, transform.position.z);
+
+        // Jump
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && !isJumping && !isSliding)
+        {
+            isJumping = true;
+            animator.Play("Jump");
+            StartCoroutine(JumpSequence());
+        }
+
+        // Slide (Bend Down)
+        if ((Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) && !isSliding && !isJumping)
+        {
+            isSliding = true;
+            animator.Play("Standing Dive Forward");
+            StartCoroutine(SlideSequence());
+        }
     }
 
     void ProcessUDPInput()
