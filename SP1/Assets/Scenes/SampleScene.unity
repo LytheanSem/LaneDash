@@ -8525,10 +8525,8 @@ MonoBehaviour:
   playerSpeed: 6
   laneSwitchSpeed: 10
   isJumping: 0
-  comingDown: 0
   isSliding: 0
-  playerObject: {fileID: 1958124749}
-  meshRenderer: {fileID: 1150858107}
+  animator: {fileID: 1958124751}
 --- !u!95 &1150858109
 Animator:
   serializedVersion: 5
