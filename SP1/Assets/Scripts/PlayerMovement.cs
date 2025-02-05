@@ -60,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isJumping = true;
             animator.Play("Jump");
+
             StartCoroutine(JumpSequence());
         }
 
@@ -70,6 +71,12 @@ public class PlayerMovement : MonoBehaviour
             animator.Play("Standing Dive Forward");
             StartCoroutine(SlideSequence());
         }
+    }
+
+    public void IncreaseSpeed(float amount)
+    {
+        playerSpeed += amount;
+        Debug.Log("New Speed: " + playerSpeed); // Debug to check if speed is increasing
     }
 
     void ProcessUDPInput()
@@ -119,6 +126,8 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
+    
 
     IEnumerator JumpSequence()
     {
