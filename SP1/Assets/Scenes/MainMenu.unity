@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 75873168}
   - component: {fileID: 75873167}
   m_Layer: 5
-  m_Name: StartGame
+  m_Name: startButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1190,7 +1190,7 @@ GameObject:
   - component: {fileID: 1301047527}
   - component: {fileID: 1301047528}
   m_Layer: 5
-  m_Name: Text Area
+  m_Name: weightInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1997,6 +1997,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c4d24b6bcd2f4ed79c021831c80e6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nameInput: {fileID: 1007065158}
+  weightInput: {fileID: 2106637077}
+  heightInput: {fileID: 1081911772}
+  startButton: {fileID: 75873167}
 --- !u!4 &1931739784
 Transform:
   m_ObjectHideFlags: 0
