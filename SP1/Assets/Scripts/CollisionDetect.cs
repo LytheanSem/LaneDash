@@ -8,6 +8,7 @@ public class CollisionDetect : MonoBehaviour
   [SerializeField] GameObject thePlayer;
   [SerializeField] GameObject playerAnim;
   [SerializeField] GameObject fadeOut;
+  [SerializeField] GameObject endScreen;
 
 
     void OnTriggerEnter (Collider other)
@@ -20,6 +21,7 @@ public class CollisionDetect : MonoBehaviour
       thePlayer.GetComponent<PlayerMovement>().enabled = false;
       playerAnim.GetComponent<Animator>().Play("Stumble Backwards");
       yield return new WaitForSeconds(0);
+      endScreen.SetActive(true);
       fadeOut.SetActive(true);
       yield return new WaitForSeconds(3);
       SceneManager.LoadScene(0);
