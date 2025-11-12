@@ -10,12 +10,10 @@ The game also includes a calorie tracking system, estimating energy expenditure 
 LaneDash transforms physical exercise into a fun, engaging, and immersive gaming experience.
 
 ## 📸 Preview 
-![Main Menu Placeholder](![Main_Menu](https://github.com/user-attachments/assets/ce29b4ff-3e8b-4834-951b-050e7c4b10be)
-)  
-![Gameplay Screenshot](<img width="2090" height="1177" alt="gameplay1" src="https://github.com/user-attachments/assets/8acaf269-49ef-4c39-a8d7-f5b20a6a3605" />
-)  
-![Motion Detection Preview](<img width="2090" height="1182" alt="gameplay2" src="https://github.com/user-attachments/assets/9cc08b6b-1739-4c7e-98f2-80949ff39f61" />
-)  
+![Main Menu](https://github.com/user-attachments/assets/ce29b4ff-3e8b-4834-951b-050e7c4b10be)  
+![Gameplay Screenshot](https://github.com/user-attachments/assets/8acaf269-49ef-4c39-a8d7-f5b20a6a3605)  
+![Motion Detection Preview](https://github.com/user-attachments/assets/9cc08b6b-1739-4c7e-98f2-80949ff39f61)
+
  
 ## ⚙️ Features
 - 🎥 Real-time body motion control via webcam (no external sensors required)  
