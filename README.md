@@ -9,13 +9,12 @@ Using **OpenCV** and **MediaPipe**, the system tracks real-time body motion thro
 The game also includes a calorie tracking system, estimating energy expenditure based on player input (height, weight) and detected activity intensity.  
 LaneDash transforms physical exercise into a fun, engaging, and immersive gaming experience.
 
-## 📸 Preview
-*(Add your images below)*  
-![Main Menu Placeholder](<img width="456" height="256" alt="image" src="https://github.com/user-attachments/assets/b6c609c4-e4de-4ccc-84b8-c07a3f484264" />
+## 📸 Preview 
+![Main Menu Placeholder](![Main_Menu](https://github.com/user-attachments/assets/ce29b4ff-3e8b-4834-951b-050e7c4b10be)
 )  
-![Gameplay Screenshot](<img width="455" height="256" alt="image" src="https://github.com/user-attachments/assets/9b1e1d21-700d-4b9b-924a-846b7f1af7a7" />
+![Gameplay Screenshot](<img width="2090" height="1177" alt="gameplay1" src="https://github.com/user-attachments/assets/8acaf269-49ef-4c39-a8d7-f5b20a6a3605" />
 )  
-![Motion Detection Preview](<img width="454" height="256" alt="image" src="https://github.com/user-attachments/assets/c5cb57fe-1668-4914-96d4-67ae493fb72a" />
+![Motion Detection Preview](<img width="2090" height="1182" alt="gameplay2" src="https://github.com/user-attachments/assets/9cc08b6b-1739-4c7e-98f2-80949ff39f61" />
 )  
  
 ## ⚙️ Features
